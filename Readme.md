@@ -1,4 +1,4 @@
-# About Ama-ama
+# About Ama-Tatsu
 Ama-Tatsu is the weather forecaster bot which work in the slack. This bot scrape the information in the weather news site.
 
 # How to use
