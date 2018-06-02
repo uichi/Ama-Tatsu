@@ -1,5 +1,5 @@
 #coding: utf-8
-import logging, MeCab, csv
+import MeCab, csv
 from flask import Flask, request, jsonify
 from scrape_news import WeatherData
 from arrange_news import ArrangeWeatherData
@@ -42,11 +42,11 @@ class Reporter:
             
         def say_today_weather(weather_news):
             """Slackの形式でJSONを返す"""
-            notify_today_weather = {"title": '天気予報', "text": weather_news[0]}
+            notify = {"title": '天気予報', "text": weather_news[0]}
             return jsonify({
             "username": "Ama-Tatsu",
             "icon_emoji": ":slightly_smiling_face:",
-            "attachments": [notify_today_weather]
+            "attachments": [notify]
             })
                 
         def say_tomorrow_weather(weather_news):
@@ -90,7 +90,6 @@ class Reporter:
             })
             
         posted_data = PostedSlackApi(request.form)
-        # logging.debug(posted_data)
 
         # ignore the slackbot if it post the message.
         if posted_data.user_name == "slackbot":
@@ -113,7 +112,7 @@ class Reporter:
             node = node.next
             
         try:
-            if bool([i for i in ['天気', 'てんき'] if i in word_list]):
+            if bool([i for i in ['天気', 'てんき', '今日の天気', '明日の天気'] if i in word_list]):
                 if bool([i for i in ['1時間ごと', '1時間', '一時間', '一時間ごと', '1時間毎', '一時間毎', '1', '１'] if i in word_list]):
                     if bool([i for i in ['明日', '明日の天気', 'あした'] if i in word_list]):
                         weather_news = ArrangeWeatherData().tomorrow_hourly_weather_news_format(municipality=municipality)
