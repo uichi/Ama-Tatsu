@@ -1,4 +1,3 @@
-#coding: utf-8
 import MeCab, csv
 from flask import Flask, request, jsonify
 from scrape_news import WeatherData

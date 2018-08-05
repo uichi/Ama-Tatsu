@@ -1,4 +1,3 @@
-#coding: utf-8
 import requests, lxml, cchardet
 from bs4 import BeautifulSoup
 
